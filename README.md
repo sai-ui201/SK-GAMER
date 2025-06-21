@@ -2,58 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Color Trading Simulator</title>
+  <title>Colour Trading Prediction Game</title>
   <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 40px;
-    }
-    #colorBox {
-      width: 150px;
-      height: 150px;
-      margin: 20px auto;
-      border: 3px solid #ccc;
-      border-radius: 10px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      font-size: 18px;
-    }
-    #result {
-      font-size: 20px;
-      margin-top: 20px;
-    }
+    body { font-family: Arial, text-align: center; padding: 30px; }
+    button { padding: 10px 20px; margin: 10px; }
+    #result { font-size: 24px; margin-top: 20px; }
   </style>
 </head>
 <body>
-  <h1>Color Trading Game</h1>
-  <p>Predict the next color (Red, Green, or Violet)</p>
-  <button onclick="predict('Red')">Red</button>
-  <button onclick="predict('Green')">Green</button>
-  <button onclick="predict('Violet')">Violet</button>
+  <h1>Colour Trading Prediction</h1>
+  <p>Choose: Big (5-9) or Small (0-4)</p>
+  <button onclick="makePrediction('Big')">Big</button>
+  <button onclick="makePrediction('Small')">Small</button>
 
-  <div id="colorBox"></div>
-  <p id="result"></p>
+  <div id="result"></div>
 
   <script>
-    const colors = ['Red', 'Green', 'Violet'];
+    function makePrediction(choice) {
+      const number = Math.floor(Math.random() * 10); // 0 to 9
+      const outcome = number >= 5 ? 'Big' : 'Small';
 
-    function getRandomColor() {
-      const randIndex = Math.floor(Math.random() * colors.length);
-      return colors[randIndex];
-    }
+      let message = `Number: ${number} (${outcome})<br>`;
+      message += (choice === outcome) ? "<b style='color: green'>You Win!</b>" : "<b style='color: red'>You Lose!</b>";
 
-    function predict(userChoice) {
-      const actualColor = getRandomColor();
-      document.getElementById('colorBox').style.backgroundColor = actualColor.toLowerCase();
-
-      if (userChoice === actualColor) {
-        document.getElementById('result').innerText = `✅ Correct! It was ${actualColor}.`;
-      } else {
-        document.getElementById('result').innerText = `❌ Wrong! It was ${actualColor}.`;
-      }
+      document.getElementById('result').innerHTML = message;
     }
   </script>
 </body>
